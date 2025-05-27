@@ -28,3 +28,14 @@
 2. Файл docker-compose.yml с установкой PostgreSQL и заполненными данными из файлов mock_data(*).csv.
 3. Скрипты DDL (SQL) создания таблиц фактов и измерений в соответствии с моделью снежинка/звезда.
 4. Скрипты DML (SQL) заполнения таблиц фактов и измерений из исходных данных.
+
+Алгоритм запуска:
+```
+docker-compose up -d --build
+```
+```
+docker exec -i lab_postgres psql -U user -d labdb < solution/ddl.sql
+```
+```
+docker exec -i lab_postgres psql -U user -d labdb < solution/dml.sql
+```
