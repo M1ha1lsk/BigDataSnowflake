@@ -1,0 +1,28 @@
+services:
+  postgres:
+    image: postgres:15
+    container_name: lab_postgres
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: labdb
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./init:/docker-entrypoint-initdb.d
+      - ./исходные данные:/data
+  importer:
+    build: ./importer
+    depends_on:
+      - postgres
+    volumes:
+      - ./исходные данные:/data
+    environment:
+      DB_HOST: postgres
+      DB_NAME: labdb
+      DB_USER: user
+      DB_PASS: password
+
+volumes:
+  pgdata:
